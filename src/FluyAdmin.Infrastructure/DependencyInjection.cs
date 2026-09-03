@@ -31,11 +31,14 @@ public static class DependencyInjection
 
         services.AddScoped<IUnitOfWork>(sp => sp.GetRequiredService<PlatformDbContext>());
         services.AddScoped<PlatformDbContextInitializer>();
+        services.AddScoped<DemoTenantSeeder>();
 
         services.AddScoped<ITenantRepository, TenantRepository>();
         services.AddScoped<IPlatformUserRepository, PlatformUserRepository>();
         services.AddScoped<IPlanRepository, PlanRepository>();
         services.AddScoped<ISubscriptionRepository, SubscriptionRepository>();
+        services.AddScoped<IInvoiceRepository, InvoiceRepository>();
+        services.AddScoped<IUsageRepository, UsageRepository>();
 
         services.AddSingleton<IDateTime, SystemDateTime>();
         services.AddSingleton<IPasswordHasher, PasswordHasher>();

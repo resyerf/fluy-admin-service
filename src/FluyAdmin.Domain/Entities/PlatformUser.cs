@@ -46,4 +46,10 @@ public class PlatformUser : AggregateRoot, IAuditableEntity
             Status = PlatformUserStatus.Active
         };
     }
+
+    public void ChangeRole(PlatformRole role) => Role = role;
+
+    public void Activate() => Status = PlatformUserStatus.Active;
+
+    public void Deactivate() => Status = PlatformUserStatus.Disabled;
 }

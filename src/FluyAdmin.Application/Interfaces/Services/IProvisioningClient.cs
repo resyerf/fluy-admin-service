@@ -12,4 +12,7 @@ public interface IProvisioningClient
 {
     Task<BootstrapTenantResponse> BootstrapTenantAsync(
         Guid tenantId, string masterEmail, string masterFullName, CancellationToken cancellationToken = default);
+
+    /// <summary>Solo usado por DemoTenantSeeder (Development) tras BootstrapTenantAsync.</summary>
+    Task SeedDemoDataAsync(Guid tenantId, CancellationToken cancellationToken = default);
 }

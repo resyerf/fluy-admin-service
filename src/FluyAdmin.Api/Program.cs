@@ -46,13 +46,22 @@ builder.Services.AddCors(options =>
 
 var app = builder.Build();
 
-// A diferencia de fluy-service (seed demo solo en Development), esto corre en todo entorno:
-// sin un PlatformUser inicial, nadie puede entrar nunca a fluy-admin-web (CODE.md §9.7).
+// A diferencia del tenant demo de abajo, esto corre en todo entorno: sin un PlatformUser inicial,
+// nadie puede entrar nunca a fluy-admin-web (CODE.md §9.7).
 using (var scope = app.Services.CreateScope())
 {
     var initializer = scope.ServiceProvider.GetRequiredService<PlatformDbContextInitializer>();
     await initializer.InitialiseAsync();
     await initializer.SeedAsync();
+}
+
+// Tenant demo (subdominio "demo", login usuario@demo.com/clavedemo123) — solo en Development,
+// y solo después de que el catálogo de planes de arriba ya exista (ProvisionTenant necesita "BUSINESS").
+if (app.Environment.IsDevelopment())
+{
+    using var demoScope = app.Services.CreateScope();
+    var demoSeeder = demoScope.ServiceProvider.GetRequiredService<DemoTenantSeeder>();
+    await demoSeeder.SeedAsync();
 }
 
 app.UseHttpsRedirection();

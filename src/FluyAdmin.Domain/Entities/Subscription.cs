@@ -13,6 +13,7 @@ public class Subscription : AggregateRoot, IAuditableEntity
     public Guid TenantId { get; private set; }
     public Guid PlanId { get; private set; }
     public SubscriptionStatus Status { get; private set; }
+    public BillingCycle BillingCycle { get; private set; }
     public DateTimeOffset StartDate { get; private set; }
     public DateTimeOffset? TrialEndsAt { get; private set; }
     public DateTimeOffset? EndDate { get; private set; }
@@ -31,6 +32,7 @@ public class Subscription : AggregateRoot, IAuditableEntity
         TenantId = tenantId,
         PlanId = planId,
         Status = SubscriptionStatus.Trial,
+        BillingCycle = BillingCycle.Monthly,
         StartDate = now,
         TrialEndsAt = now.Add(trialLength)
     };
@@ -44,4 +46,6 @@ public class Subscription : AggregateRoot, IAuditableEntity
         Status = SubscriptionStatus.Cancelled;
         EndDate = now;
     }
+
+    public void ChangePlan(Guid newPlanId) => PlanId = newPlanId;
 }

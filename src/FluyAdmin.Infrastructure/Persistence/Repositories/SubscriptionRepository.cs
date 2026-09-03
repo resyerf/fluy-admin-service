@@ -10,6 +10,11 @@ internal sealed class SubscriptionRepository(PlatformDbContext db) : ISubscripti
 {
     public void Add(Subscription subscription) => db.Subscriptions.Add(subscription);
 
+    public void AddItem(SubscriptionItem item) => db.SubscriptionItems.Add(item);
+
+    public Task<Subscription?> GetByIdAsync(Guid id, CancellationToken cancellationToken) =>
+        db.Subscriptions.FirstOrDefaultAsync(s => s.Id == id, cancellationToken);
+
     public async Task<IReadOnlyCollection<SubscriptionSummary>> GetAllAsync(CancellationToken cancellationToken) =>
         await (
                 from subscription in db.Subscriptions.AsNoTracking()

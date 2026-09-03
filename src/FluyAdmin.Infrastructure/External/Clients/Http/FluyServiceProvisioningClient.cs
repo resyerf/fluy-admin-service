@@ -24,4 +24,12 @@ public class FluyServiceProvisioningClient(HttpClient httpClient) : IProvisionin
 
         return new BootstrapTenantResponse(result.MasterUserId, result.ActivationEmailSent);
     }
+
+    public async Task SeedDemoDataAsync(Guid tenantId, CancellationToken cancellationToken = default)
+    {
+        var response = await httpClient.PostAsync(
+            $"api/internal/provisioning/tenants/{tenantId}/seed-demo-data", content: null, cancellationToken);
+
+        response.EnsureSuccessStatusCode();
+    }
 }
