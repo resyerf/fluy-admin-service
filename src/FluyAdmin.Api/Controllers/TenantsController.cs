@@ -1,11 +1,13 @@
 using FluyAdmin.Application.Common.Exceptions;
-using FluyAdmin.Application.Tenants.ActivateTenant;
-using FluyAdmin.Application.Tenants.GetTenants;
-using FluyAdmin.Application.Tenants.ProvisionTenant;
-using FluyAdmin.Application.Tenants.SuspendTenant;
+using FluyAdmin.Application.Commands.Tenants.ActivateTenant;
+using FluyAdmin.Application.DTOs;
+using FluyAdmin.Application.Queries.Tenants.GetTenants;
+using FluyAdmin.Application.Commands.Tenants.ProvisionTenant;
+using FluyAdmin.Application.Commands.Tenants.SuspendTenant;
 using Fluy.SharedKernel.Dispatching;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using FluyAdmin.Api.Models.Requests;
 
 namespace FluyAdmin.Api.Controllers;
 
@@ -14,8 +16,6 @@ namespace FluyAdmin.Api.Controllers;
 [Authorize]
 public class TenantsController(ISender sender) : ControllerBase
 {
-    public record ProvisionTenantRequest(
-        string Name, string Subdomain, string MasterEmail, string MasterFullName, string? PlanCode, int? TrialDays);
 
     [HttpGet]
     public async Task<ActionResult<IReadOnlyCollection<TenantSummary>>> GetAll(CancellationToken cancellationToken)

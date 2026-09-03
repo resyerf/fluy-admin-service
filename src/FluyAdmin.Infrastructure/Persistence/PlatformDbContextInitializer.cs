@@ -1,9 +1,10 @@
-using FluyAdmin.Domain.Billing;
-using FluyAdmin.Domain.PlatformIdentity;
+using FluyAdmin.Domain.Entities;
+using FluyAdmin.Domain.Enums;
 using Fluy.SharedKernel.Security;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using FluyAdmin.Infrastructure.Persistence.Context;
 
 namespace FluyAdmin.Infrastructure.Persistence;
 
@@ -55,43 +56,83 @@ public class PlatformDbContextInitializer(
     {
         ["FREE"] = new()
         {
-            ["workflow.basic"] = "true", ["workflow.advanced"] = "false",
-            ["rules.basic"] = "false", ["rules.advanced"] = "false",
-            ["audit.basic"] = "true", ["audit.advanced"] = "false",
-            ["api"] = "false", ["webhooks"] = "false", ["sso"] = "false",
-            ["teams"] = "false", ["blockchain"] = "false", ["advanced.reporting"] = "false",
-            ["max.users"] = "5", ["max.branches"] = "1", ["max.workflows"] = "3",
-            ["max.requests.month"] = "100", ["max.storage.gb"] = "1"
+            ["workflow.basic"] = "true",
+            ["workflow.advanced"] = "false",
+            ["rules.basic"] = "false",
+            ["rules.advanced"] = "false",
+            ["audit.basic"] = "true",
+            ["audit.advanced"] = "false",
+            ["api"] = "false",
+            ["webhooks"] = "false",
+            ["sso"] = "false",
+            ["teams"] = "false",
+            ["blockchain"] = "false",
+            ["advanced.reporting"] = "false",
+            ["max.users"] = "5",
+            ["max.branches"] = "1",
+            ["max.workflows"] = "3",
+            ["max.requests.month"] = "100",
+            ["max.storage.gb"] = "1"
         },
         ["STARTER"] = new()
         {
-            ["workflow.basic"] = "true", ["workflow.advanced"] = "false",
-            ["rules.basic"] = "true", ["rules.advanced"] = "false",
-            ["audit.basic"] = "true", ["audit.advanced"] = "false",
-            ["api"] = "false", ["webhooks"] = "false", ["sso"] = "false",
-            ["teams"] = "false", ["blockchain"] = "false", ["advanced.reporting"] = "false",
-            ["max.users"] = "25", ["max.branches"] = "3", ["max.workflows"] = "15",
-            ["max.requests.month"] = "1000", ["max.storage.gb"] = "10"
+            ["workflow.basic"] = "true",
+            ["workflow.advanced"] = "false",
+            ["rules.basic"] = "true",
+            ["rules.advanced"] = "false",
+            ["audit.basic"] = "true",
+            ["audit.advanced"] = "false",
+            ["api"] = "false",
+            ["webhooks"] = "false",
+            ["sso"] = "false",
+            ["teams"] = "false",
+            ["blockchain"] = "false",
+            ["advanced.reporting"] = "false",
+            ["max.users"] = "25",
+            ["max.branches"] = "3",
+            ["max.workflows"] = "15",
+            ["max.requests.month"] = "1000",
+            ["max.storage.gb"] = "10"
         },
         ["BUSINESS"] = new()
         {
-            ["workflow.basic"] = "true", ["workflow.advanced"] = "true",
-            ["rules.basic"] = "true", ["rules.advanced"] = "true",
-            ["audit.basic"] = "true", ["audit.advanced"] = "true",
-            ["api"] = "true", ["webhooks"] = "true", ["sso"] = "false",
-            ["teams"] = "true", ["blockchain"] = "false", ["advanced.reporting"] = "true",
-            ["max.users"] = "100", ["max.branches"] = "10", ["max.workflows"] = "100",
-            ["max.requests.month"] = "10000", ["max.storage.gb"] = "100"
+            ["workflow.basic"] = "true",
+            ["workflow.advanced"] = "true",
+            ["rules.basic"] = "true",
+            ["rules.advanced"] = "true",
+            ["audit.basic"] = "true",
+            ["audit.advanced"] = "true",
+            ["api"] = "true",
+            ["webhooks"] = "true",
+            ["sso"] = "false",
+            ["teams"] = "true",
+            ["blockchain"] = "false",
+            ["advanced.reporting"] = "true",
+            ["max.users"] = "100",
+            ["max.branches"] = "10",
+            ["max.workflows"] = "100",
+            ["max.requests.month"] = "10000",
+            ["max.storage.gb"] = "100"
         },
         ["ENTERPRISE"] = new()
         {
-            ["workflow.basic"] = "true", ["workflow.advanced"] = "true",
-            ["rules.basic"] = "true", ["rules.advanced"] = "true",
-            ["audit.basic"] = "true", ["audit.advanced"] = "true",
-            ["api"] = "true", ["webhooks"] = "true", ["sso"] = "true",
-            ["teams"] = "true", ["blockchain"] = "true", ["advanced.reporting"] = "true",
-            ["max.users"] = "unlimited", ["max.branches"] = "unlimited", ["max.workflows"] = "unlimited",
-            ["max.requests.month"] = "unlimited", ["max.storage.gb"] = "unlimited"
+            ["workflow.basic"] = "true",
+            ["workflow.advanced"] = "true",
+            ["rules.basic"] = "true",
+            ["rules.advanced"] = "true",
+            ["audit.basic"] = "true",
+            ["audit.advanced"] = "true",
+            ["api"] = "true",
+            ["webhooks"] = "true",
+            ["sso"] = "true",
+            ["teams"] = "true",
+            ["blockchain"] = "true",
+            ["advanced.reporting"] = "true",
+            ["max.users"] = "unlimited",
+            ["max.branches"] = "unlimited",
+            ["max.workflows"] = "unlimited",
+            ["max.requests.month"] = "unlimited",
+            ["max.storage.gb"] = "unlimited"
         }
     };
 

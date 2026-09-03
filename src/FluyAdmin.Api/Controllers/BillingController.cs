@@ -1,5 +1,6 @@
-using FluyAdmin.Application.Billing.GetPlans;
-using FluyAdmin.Application.Billing.GetSubscriptions;
+using FluyAdmin.Application.Queries.Billing.GetPlans;
+using FluyAdmin.Application.DTOs;
+using FluyAdmin.Application.Queries.Billing.GetSubscriptions;
 using Fluy.SharedKernel.Dispatching;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

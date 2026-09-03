@@ -1,4 +1,4 @@
-using FluyAdmin.Domain.Billing;
+using FluyAdmin.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

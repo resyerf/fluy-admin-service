@@ -1,5 +1,5 @@
 using System.Text;
-using FluyAdmin.Api.Middleware;
+using FluyAdmin.Api.Middlewares;
 using FluyAdmin.Application;
 using FluyAdmin.Infrastructure;
 using FluyAdmin.Infrastructure.Persistence;

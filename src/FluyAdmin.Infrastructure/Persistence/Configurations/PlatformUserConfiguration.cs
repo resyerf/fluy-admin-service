@@ -1,4 +1,4 @@
-using FluyAdmin.Domain.PlatformIdentity;
+using FluyAdmin.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

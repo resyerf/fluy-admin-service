@@ -1,8 +1,10 @@
 using FluyAdmin.Application.Common.Exceptions;
-using FluyAdmin.Application.PlatformIdentity.Login;
+using FluyAdmin.Application.Commands.PlatformIdentity.Login;
+using FluyAdmin.Application.DTOs;
 using Fluy.SharedKernel.Dispatching;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using FluyAdmin.Api.Models.Requests;
 
 namespace FluyAdmin.Api.Controllers;
 
@@ -10,7 +12,6 @@ namespace FluyAdmin.Api.Controllers;
 [Route("api/v1/auth")]
 public class AuthController(ISender sender) : ControllerBase
 {
-    public record LoginRequest(string Email, string Password);
 
     [HttpPost("login")]
     [AllowAnonymous]

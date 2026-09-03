@@ -1,6 +1,6 @@
 using FluentValidation;
 
-namespace FluyAdmin.Api.Middleware;
+namespace FluyAdmin.Api.Middlewares;
 
 /// <summary>
 /// Traduce el ValidationException que lanza Dispatcher (Fluy.SharedKernel) a un 400 con formato

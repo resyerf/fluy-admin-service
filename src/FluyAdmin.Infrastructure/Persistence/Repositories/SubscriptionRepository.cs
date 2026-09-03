@@ -1,7 +1,8 @@
-using FluyAdmin.Application.Billing.GetSubscriptions;
-using FluyAdmin.Application.Common.Interfaces.Repositories;
-using FluyAdmin.Domain.Billing;
+using FluyAdmin.Application.DTOs;
+using FluyAdmin.Application.Interfaces.Repositories;
+using FluyAdmin.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
+using FluyAdmin.Infrastructure.Persistence.Context;
 
 namespace FluyAdmin.Infrastructure.Persistence.Repositories;
 
