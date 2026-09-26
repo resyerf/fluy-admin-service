@@ -6,6 +6,7 @@ using FluyAdmin.Infrastructure.Persistence;
 using Fluy.SharedKernel.Security;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -33,18 +34,39 @@ builder.Services
 builder.Services.AddAuthorization();
 builder.Services.AddControllers();
 
-// CORS de desarrollo: permite que fluy-admin-web (Angular dev server, otro puerto que fluy-web)
-// llame a esta API desde el navegador — mismo criterio que fluy-service (CODE.md §4.6).
-const string DevCorsPolicy = "DevCors";
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen(options =>
+{
+    options.SwaggerDoc("v1", new OpenApiInfo { Title = "FLUY Admin Service", Version = "v1" });
+
+    var bearerScheme = new OpenApiSecurityScheme
+    {
+        Name = "Authorization",
+        Type = SecuritySchemeType.Http,
+        Scheme = "bearer",
+        BearerFormat = "JWT",
+        In = ParameterLocation.Header,
+        Reference = new OpenApiReference { Type = ReferenceType.SecurityScheme, Id = "Bearer" }
+    };
+    options.AddSecurityDefinition("Bearer", bearerScheme);
+    options.AddSecurityRequirement(new OpenApiSecurityRequirement { { bearerScheme, Array.Empty<string>() } });
+});
+
+// Permite que fluy-admin-web (dev server local y el dominio real desplegado) llame a esta API
+// desde el navegador — mismo criterio que fluy-service (CODE.md §4.6).
+const string CorsPolicy = "FluyAdminWebCors";
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy(DevCorsPolicy, policy => policy
-        .WithOrigins("http://localhost:4201")
+    options.AddPolicy(CorsPolicy, policy => policy
+        .WithOrigins("http://localhost:4201", "https://www.fluyadmin.resyerf.com")
         .AllowAnyHeader()
         .AllowAnyMethod());
 });
 
 var app = builder.Build();
+
+app.UseSwagger();
+app.UseSwaggerUI();
 
 // A diferencia del tenant demo de abajo, esto corre en todo entorno: sin un PlatformUser inicial,
 // nadie puede entrar nunca a fluy-admin-web (CODE.md §9.7).
@@ -66,7 +88,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.UseCors(DevCorsPolicy);
+app.UseCors(CorsPolicy);
 
 app.UseMiddleware<ValidationExceptionMiddleware>();
 
